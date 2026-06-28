@@ -52,7 +52,9 @@
            ANIMASI LOADING (Logo, Nama, Garis Horizontal) 
            ========================================= */
         #loading-screen {
-            position: fixed; inset: 0; z-index: 9999; display: block;
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%; /* Fix kompatibilitas untuk layar HP */
+            z-index: 9999; display: block;
         }
 
         .loader-bg-top, .loader-bg-bottom {
@@ -73,9 +75,11 @@
 
         .loader-content-wrapper {
             position: absolute; top: 50%; left: 50%;
+            width: 100%; max-width: 300px; /* Force lebar agar bisa pas di tengah */
             transform: translate(-50%, -80%); 
             z-index: 2; display: flex; flex-direction: column;
-            align-items: center; gap: 12px; padding-bottom: 20px;
+            align-items: center; justify-content: center; text-align: center;
+            gap: 12px; padding-bottom: 20px;
             opacity: 0; 
             filter: blur(4px); 
             transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
@@ -234,18 +238,24 @@
         }
 
         /* =========================================
-           RESPONSIVE MOBILE (SEPERTI DI FOTO)
+           RESPONSIVE MOBILE (PERBAIKAN POSISI MENU & LOADING)
            ========================================= */
         @media (max-width: 768px) {
             body { 
-                height: 100vh; /* Mengembalikan efek full screen layaknya aplikasi */
+                height: 100vh;
                 overflow: hidden; 
             }
             
+            /* MENCEGAH HEADER MENJEBAK MENU NAVIGASI FIXED */
             .header-wrapper {
                 background: transparent;
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                transform: none !important;
+            }
+
+            body.loaded .header-wrapper {
+                animation: mobileHeaderFade 0.8s forwards 0.2s !important;
             }
 
             header {
@@ -273,12 +283,10 @@
                 border-radius: 50%;
             }
             
-            /* Sembunyikan teks menu, sisakan ikon */
             .nav-text {
                 display: none;
             }
 
-            /* --- PENGATURAN KONTEN TENGAH --- */
             main {
                 padding-top: 0;
                 height: 100vh; 
@@ -301,7 +309,6 @@
                 margin-top: -3rem; 
             }
 
-            /* Ukuran font disesuaikan agar tidak tumpang tindih */
             .hero-content h1 { 
                 font-size: 2rem; 
                 margin-bottom: 1rem;
@@ -312,7 +319,6 @@
                 margin-bottom: 2rem;
             }
 
-            /* Tombol bersusun vertikal dan melebar penuh */
             .cta-buttons {
                 flex-direction: column;
                 width: 100%;
@@ -330,10 +336,15 @@
                 gap: 1.5rem;
             }
 
-            /* Hilangkan gambar 3D */
             .hero-image {
                 display: none;
             }
+        }
+        
+        /* Animasi aman khusus HP (Tanpa elemen transform yang merusak layout fixed) */
+        @keyframes mobileHeaderFade {
+            from { opacity: 0; transform: none; }
+            to { opacity: 1; transform: none; }
         }
     </style>
 </head>
@@ -408,7 +419,7 @@
     </main>
 
     <script>
-        // --- 1. SCRIPT SEQUENCE ANIMASI LOADING (DIURUTKAN ULANG) ---
+        // --- 1. SCRIPT SEQUENCE ANIMASI LOADING ---
         window.addEventListener('load', function() {
             setTimeout(() => document.body.classList.add('anim-logo-in'), 100);
             setTimeout(() => document.body.classList.add('anim-line-expand'), 1000);
@@ -454,7 +465,7 @@
         // --- 4. SCRIPT EFEK PARALLAX (MOUSE TRACKING UNTUK FOTO 3D) ---
         document.addEventListener('mousemove', function(e) {
             const asset3D = document.getElementById('asset-3d');
-            if (asset3D) {
+            if (asset3D && window.innerWidth > 768) { // Matikan paralaks di mobile agar lebih ringan
                 const xAxis = (e.pageX - window.innerWidth / 2) / 30;
                 const yAxis = (e.pageY - window.innerHeight / 2) / 30;
                 asset3D.style.transform = `scale(1.1) translate(${xAxis}px, ${yAxis}px)`;
