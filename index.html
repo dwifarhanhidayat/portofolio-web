@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio - Dwi Farhan Hidayat</title>
     
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome (Ikon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -45,7 +43,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             height: 100vh; 
-            overflow: hidden; /* Mengunci layar agar tidak bisa discroll (App-like feel) */
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
         }
@@ -53,7 +51,9 @@
         /* =========================================
            ANIMASI LOADING (Logo, Nama, Garis Horizontal) 
            ========================================= */
-        #loading-screen { position: fixed; inset: 0; z-index: 9999; display: block; }
+        #loading-screen {
+            position: fixed; inset: 0; z-index: 9999; display: block;
+        }
 
         .loader-bg-top, .loader-bg-bottom {
             position: absolute; left: 0; width: 100%; height: 50%;
@@ -66,7 +66,7 @@
         .loader-horizontal-line {
             position: absolute; top: 50%; left: 0; width: 100vw; height: 2px;
             background-color: #FAFAFA; z-index: 3;
-            transform: translateY(-50%) scaleX(0); 
+            transform: translateY(-50%) scaleX(0);
             transform-origin: center;
             transition: transform 0.6s cubic-bezier(0.5, 0, 0, 1), opacity 0.5s ease;
         }
@@ -76,25 +76,44 @@
             transform: translate(-50%, -80%); 
             z-index: 2; display: flex; flex-direction: column;
             align-items: center; gap: 12px; padding-bottom: 20px;
-            opacity: 0; filter: blur(4px); 
+            opacity: 0; 
+            filter: blur(4px); 
             transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
             color: #FFFFFF; font-size: 1.5rem; font-weight: 700; letter-spacing: 2px;
         }
         
-        .loader-img { width: 55px; height: 55px; border-radius: 12px; object-fit: cover; background-color: #FFFFFF; }
+        .loader-img {
+            width: 125px; height: 125px; border-radius: 80px;
+            object-fit: cover; background-color: #FFFFFF;
+        }
 
-        body.anim-logo-in .loader-content-wrapper { opacity: 1; transform: translate(-50%, -100%); filter: blur(0px); }
-        body.anim-line-expand .loader-horizontal-line { transform: translateY(-50%) scaleX(1); }
+        body.anim-logo-in .loader-content-wrapper {
+            opacity: 1;
+            transform: translate(-50%, -100%);
+            filter: blur(0px);
+        }
+
+        body.anim-line-expand .loader-horizontal-line {
+            transform: translateY(-50%) scaleX(1);
+        }
+        
         body.anim-curtain-open .loader-bg-top { transform: translateY(-100%); }
         body.anim-curtain-open .loader-bg-bottom { transform: translateY(100%); }
+        
         body.anim-curtain-open .loader-horizontal-line { opacity: 0; }
-        body.anim-curtain-open .loader-content-wrapper { opacity: 0; filter: blur(8px); transition: opacity 0.4s ease, filter 0.4s ease; }
+        body.anim-curtain-open .loader-content-wrapper {
+            opacity: 0;
+            filter: blur(8px); 
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
 
         /* =========================================
            ANIMASI MASUK KONTEN (SLIDE & FADE IN) 
            ========================================= */
         .header-wrapper { opacity: 0; transform: translateY(-20px); }
-        .hero-content h1, .hero-content p, .cta-buttons, .social-icons, .hero-image { opacity: 0; transform: translateY(30px); }
+        .hero-content h1, .hero-content p, .cta-buttons, .social-icons, .hero-image {
+            opacity: 0; transform: translateY(30px);
+        }
 
         body.loaded .header-wrapper { animation: slideDownFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.2s; }
         body.loaded .hero-content h1 { animation: slideUpFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.4s; }
@@ -106,7 +125,7 @@
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideDownFade { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- STICKY HEADER / NAVBAR (DESKTOP) --- */
+        /* --- STICKY HEADER / NAVBAR --- */
         .header-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -121,38 +140,35 @@
             display: flex; align-items: center; gap: 10px; background: var(--card-bg);
             padding: 8px 16px 8px 8px; border-radius: 50px; border: 1px solid var(--border-color); font-weight: 500;
         }
+
         .logo-img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #E5E5E5; }
 
-        .desktop-nav {
+        nav {
             background: var(--card-bg); padding: 6px; border-radius: 50px;
             border: 1px solid var(--border-color); display: flex; gap: 5px;
         }
-        .desktop-nav a {
+        nav a {
             text-decoration: none; color: var(--text-muted); padding: 10px 20px;
             border-radius: 50px; font-weight: 500; font-size: 0.95rem;
             display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;
         }
-        .desktop-nav a.active { background-color: var(--text-main); color: var(--bg-color); }
-        .desktop-nav a:hover:not(.active) { color: var(--text-main); background-color: rgba(0,0,0,0.05); }
-        body.dark-mode .desktop-nav a:hover:not(.active) { background-color: rgba(255,255,255,0.1); }
+        nav a.active { background-color: var(--text-main); color: var(--bg-color); }
+        nav a:hover:not(.active) { color: var(--text-main); background-color: rgba(0,0,0,0.05); }
+        body.dark-mode nav a:hover:not(.active) { background-color: rgba(255,255,255,0.1); }
 
         .header-right { display: flex; align-items: center; gap: 12px; }
+        
         .icon-btn, .lang-switch {
             display: flex; align-items: center; gap: 8px; background: var(--card-bg); padding: 10px 16px;
             border-radius: 50px; border: 1px solid var(--border-color); font-weight: 500; cursor: pointer; color: var(--text-main);
         }
         .icon-btn:hover, .lang-switch:hover { background-color: var(--border-color); }
 
-        /* Menyembunyikan menu bawah jika di PC/Desktop */
-        .mobile-bottom-nav {
-            display: none;
-        }
-
         /* --- HERO SECTION --- */
         main { flex: 1; display: flex; align-items: center; padding-top: 80px; }
         .hero { display: flex; align-items: center; justify-content: space-between; max-width: 1300px; margin: 0 auto; padding: 0 4rem; gap: 4rem; width: 100%; }
         .hero-content { flex: 1.2; max-width: 650px; }
-        .hero-content h1 { font-size: 4.5rem; line-height: 1.15; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -2px; }
+        .hero-content h1 { font-size: 4rem; line-height: 1.15; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -2px; }
 
         .typewriter-text { color: #71717A; font-style: italic; font-weight: 800; display: inline-block; }
         .cursor { color: #71717A; font-style: italic; font-weight: 800; display: inline-block; animation: blink 1s step-end infinite; }
@@ -162,190 +178,195 @@
         .hero-content p strong { color: var(--text-main); font-weight: 600; }
 
         .cta-buttons { display: flex; gap: 1rem; margin-bottom: 2.5rem; }
-        .btn { text-decoration: none; padding: 14px 28px; border-radius: 50px; font-weight: 500; font-size: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .btn { text-decoration: none; padding: 14px 28px; border-radius: 50px; font-weight: 500; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
         .btn-primary { background-color: var(--text-main); color: var(--bg-color); border: 1px solid var(--text-main); }
         .btn-primary:hover { opacity: 0.8; }
         .btn-secondary { background-color: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
         .btn-secondary:hover { background-color: var(--border-color); }
 
         .social-icons { display: flex; gap: 1rem; }
-        .social-icons a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--border-color); color: var(--text-main); text-decoration: none; font-size: 1.2rem; background-color: var(--card-bg); transition: all 0.3s ease;}
+        .social-icons a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--border-color); color: var(--text-main); text-decoration: none; font-size: 1.2rem; background-color: var(--card-bg); }
         .social-icons a:hover { transform: translateY(-2px); border-color: var(--text-main); }
 
-        /* --- GAMBAR 3D --- */
-        .hero-image { flex: 0.8; height: 400px; max-width: 450px; position: relative; display: flex; align-items: center; justify-content: center; }
-        .image-wrapper { position: absolute; width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: linear-gradient(135deg, #1A1A1D 0%, #2D2D35 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .image-wrapper img.asset-3d { width: 100%; height: 100%; object-fit: contain; transform: scale(1.1); transition: transform 0.1s ease-out; will-change: transform; }
+        /* =========================================
+           AREA GAMBAR 3D (SUDUT MELENGKUNG) 
+           ========================================= */
+        .hero-image {
+            flex: 0.8; height: 400px; max-width: 450px; position: relative; 
+            display: flex; align-items: center; justify-content: center;
+        }
 
-        .floating-card { position: absolute; bottom: -20px; left: -40px; background: var(--card-bg); padding: 1.2rem; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); color: var(--text-main); display: flex; flex-direction: column; gap: 8px; animation: float 6s ease-in-out infinite; z-index: 5; }
+        .image-wrapper {
+            position: absolute; width: 100%; height: 100%; border-radius: 30px; 
+            overflow: hidden; background: linear-gradient(135deg, #1A1A1D 0%, #2D2D35 100%);
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .image-wrapper img.asset-3d {
+            width: 100%; height: 100%; object-fit: contain; transform: scale(1.1);
+            transition: transform 0.1s ease-out; will-change: transform;
+        }
+
+        .floating-card {
+            position: absolute; bottom: -20px; left: -40px; background: var(--card-bg);
+            padding: 1.2rem; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            color: var(--text-main); display: flex; flex-direction: column; gap: 8px;
+            animation: float 6s ease-in-out infinite; z-index: 5;
+        }
+
         body.dark-mode .floating-card { box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
+
         .avatars { display: flex; align-items: center; }
         .avatars img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--card-bg); margin-left: -10px; background-color: #E5E5E5; object-fit: cover; }
         .avatars img:first-child { margin-left: 0; }
         .client-count { font-size: 0.8rem; font-weight: 600; margin-left: 10px; }
         .floating-card p { font-size: 0.85rem; font-weight: 600; margin: 0; line-height: 1.3; }
 
+        /* --- RESPONSIVE DESKTOP KECIL & TABLET --- */
+        @media (max-width: 1024px) {
+            body { height: auto; overflow: visible; }
+            main { padding-top: 120px; }
+            .hero { flex-direction: column; padding: 0 2rem; gap: 2rem; }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-image { width: 100%; height: 350px; max-width: 100%; margin-bottom: 4rem;}
+            .floating-card { left: 20px; bottom: -20px; }
+        }
+
         /* =========================================
-           RESPONSIVE DESIGN KHUSUS ANDROID/MOBILE
-           Sesuai dengan referensi "unggul.jpeg"
+           RESPONSIVE MOBILE (SEPERTI DI FOTO)
            ========================================= */
         @media (max-width: 768px) {
             body { 
-                overflow: hidden; /* Dikunci agar pas 1 layar seperti App */
+                height: 100vh; /* Mengembalikan efek full screen layaknya aplikasi */
+                overflow: hidden; 
             }
             
-            header { 
-                padding: 1.5rem 1.5rem; 
+            .header-wrapper {
+                background: transparent;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
             }
-            
-            /* Menyembunyikan menu teks atas */
-            .desktop-nav { 
-                display: none; 
-            } 
-            
-            /* Menampilkan menu pil melayang di bawah layar */
-            .mobile-bottom-nav {
-                display: flex;
+
+            header {
+                padding: 1.5rem;
+            }
+
+            /* --- NAVIGASI BAWAH MENGAMBANG --- */
+            nav {
                 position: fixed;
-                bottom: 30px;
+                bottom: 2rem;
                 left: 50%;
                 transform: translateX(-50%);
-                background: var(--card-bg);
-                padding: 10px 20px;
-                border-radius: 50px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-                border: 1px solid var(--border-color);
-                gap: 20px;
+                padding: 10px 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
                 z-index: 1000;
-                opacity: 0; /* Mulai disembunyikan untuk animasi awal */
+                gap: 12px;
             }
-
-            body.dark-mode .mobile-bottom-nav { box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
             
-            /* Memunculkan navbar bawah mengikuti animasi konten */
-            body.loaded .mobile-bottom-nav {
-                animation: slideUpFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.8s;
+            body.dark-mode nav {
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             }
 
-            .mobile-bottom-nav a {
-                color: var(--text-muted);
-                font-size: 1.2rem;
+            nav a {
+                padding: 12px;
+                border-radius: 50%;
+            }
+            
+            /* Sembunyikan teks menu, sisakan ikon */
+            .nav-text {
+                display: none;
+            }
+
+            /* --- PENGATURAN KONTEN TENGAH --- */
+            main {
+                padding-top: 0;
+                height: 100vh; 
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 38px;
-                height: 38px;
-                border-radius: 50%;
-                text-decoration: none;
-                transition: all 0.3s ease;
             }
 
-            .mobile-bottom-nav a.active {
-                color: var(--text-main);
-                background-color: rgba(0,0,0,0.05);
-            }
-            
-            body.dark-mode .mobile-bottom-nav a.active { background-color: rgba(255,255,255,0.1); }
-            
-            main { 
-                padding-top: 0; 
-                display: flex;
-                align-items: center; /* Konten pas di tengah vertikal */
-                justify-content: center;
-            }
-            
-            .hero { 
-                padding: 0 1.5rem; 
-                gap: 0;
-                flex-direction: column;
-                justify-content: center;
-                margin-top: -60px; /* Ditarik sedikit ke atas agar seimbang */
-            }
-            
-            /* HILANGKAN GAMBAR 3D DAN KARTU KLIEN SEPENUHNYA */
-            .hero-image {
-                display: none !important;
+            .hero {
+                padding: 0 1.5rem;
+                text-align: center;
+                gap: 1rem;
+                width: 100%;
             }
 
             .hero-content {
                 display: flex;
                 flex-direction: column;
-                align-items: center; 
-                text-align: center;
-                width: 100%;
+                align-items: center;
+                margin-top: -3rem; 
             }
-            
-            /* Tipografi di-resize meniru gaya 'unggul.jpeg' */
+
+            /* Ukuran font disesuaikan agar tidak tumpang tindih */
             .hero-content h1 { 
-                font-size: 3rem; /* Font rapi dan proporsional */
-                line-height: 1.1;
+                font-size: 2rem; 
                 margin-bottom: 1rem;
             }
             
-            .typewriter-text, .cursor {
-                font-size: 3rem;
-            }
-
-            .hero-content p { 
-                text-align: center; 
-                margin: 0 auto 2rem; 
-                font-size: 1rem;
-                line-height: 1.6;
-                padding: 0 10px; /* Agar paragraf tidak terlalu nempel tepi layar */
-            }
-            
-            .cta-buttons { 
-                flex-direction: column; 
-                width: 100%; 
-                gap: 12px; 
+            .hero-content p {
+                font-size: 0.95rem;
                 margin-bottom: 2rem;
             }
-            
-            .btn { 
-                width: 100%; 
-                padding: 16px 28px; 
-                font-size: 1.05rem;
+
+            /* Tombol bersusun vertikal dan melebar penuh */
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.8rem;
+                margin-bottom: 2rem;
             }
-            
-            .social-icons { 
-                justify-content: center; 
-                width: 100%; 
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 16px;
+            }
+
+            .social-icons {
                 gap: 1.5rem;
+            }
+
+            /* Hilangkan gambar 3D */
+            .hero-image {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- LOADING SCREEN HORIZONTAL SPLIT DENGAN FADE IN -->
     <div id="loading-screen">
         <div class="loader-bg-top"></div>
         <div class="loader-bg-bottom"></div>
+        
         <div class="loader-horizontal-line"></div>
+        
         <div class="loader-content-wrapper">
-            <img src="logo-farhan.png" alt="Logo" class="loader-img">
-            <span>FARHAN</span>
+            <img src="Logo.png" alt="Logo" class="loader-img">
+            <span>Selamat Datang</span>
         </div>
     </div>
 
-    <!-- HEADER / NAVBAR ATAS -->
     <div class="header-wrapper">
         <header>
             <div class="logo-container">
-                <img src="logo-farhan.png" alt="Logo" class="logo-img">
+                <img src="Logo.png" alt="Logo" class="logo-img">
                 <span>Hann || WebDev</span>
             </div>
             
-            <!-- Navbar Desktop (Hilang di HP) -->
-            <nav class="desktop-nav">
-                <a href="#" class="active"><i class="fa-solid fa-house"></i> Beranda</a>
-                <a href="#"><i class="fa-regular fa-user"></i> Tentang</a>
-                <a href="#"><i class="fa-solid fa-code"></i> Karya</a>
-                <a href="#"><i class="fa-regular fa-envelope"></i> Kontak</a>
+            <nav>
+                <a href="#" class="active"><i class="fa-solid fa-house"></i> <span class="nav-text">Beranda</span></a>
+                <a href="#"><i class="fa-regular fa-user"></i> <span class="nav-text">Tentang</span></a>
+                <a href="#"><i class="fa-solid fa-code"></i> <span class="nav-text">Karya</span></a>
+                <a href="#"><i class="fa-regular fa-envelope"></i> <span class="nav-text">Kontak</span></a>
             </nav>
-            
+
             <div class="header-right">
-                <div class="lang-switch"><i class="fa-solid fa-language"></i><span style="font-size: 0.85rem;">ID</span></div>
+                <div class="lang-switch"><i class="fa-solid fa-language"></i><span>ID</span></div>
                 <button class="icon-btn" onclick="toggleTheme()" id="theme-btn"><i class="fa-regular fa-moon" id="theme-icon"></i></button>
             </div>
         </header>
@@ -353,16 +374,13 @@
 
     <main>
         <section class="hero">
-            <!-- KONTEN TEKS KIRI (Tengah di HP) -->
             <div class="hero-content">
                 <h1>Dwi Farhan Hidayat,<br><span class="typewriter-text" id="typewriter"></span><span class="cursor">_</span></h1>
-                <p>Halo, saya <strong>Dwi Farhan Hidayat</strong> -- Seorang Web Developer yang berfokus pada UI/UX, Backend Developer dan desain grafis.</p>
-                
+                <p>Halo, saya <strong>Farhan</strong> — Seorang Web Developer yang berfokus pada UI/UX, Backend Developer dan desain grafis.</p>
                 <div class="cta-buttons">
                     <a href="#" class="btn btn-primary">Lihat Proyek <i class="fas fa-arrow-right"></i></a>
                     <a href="#" class="btn btn-secondary">Hubungi Saya</a>
                 </div>
-                
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-github"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -371,11 +389,11 @@
                 </div>
             </div>
 
-            <!-- GAMBAR 3D KANAN (Akan otomatis Hilang di HP) -->
             <div class="hero-image">
                 <div class="image-wrapper">
                     <img src="objek-3d.png" alt="3D Element" class="asset-3d" id="asset-3d">
                 </div>
+                
                 <div class="floating-card">
                     <div class="avatars">
                         <img src="https://via.placeholder.com/35" alt="Klien 1">
@@ -389,16 +407,8 @@
         </section>
     </main>
 
-    <!-- BOTTOM NAVBAR KHUSUS MOBILE (Akan otomatis Hilang di PC) -->
-    <nav class="mobile-bottom-nav">
-        <a href="#" class="active"><i class="fa-solid fa-house"></i></a>
-        <a href="#"><i class="fa-regular fa-user"></i></a>
-        <a href="#"><i class="fa-solid fa-code"></i></a>
-        <a href="#"><i class="fa-regular fa-envelope"></i></a>
-    </nav>
-
     <script>
-        // --- 1. SCRIPT SEQUENCE ANIMASI LOADING ---
+        // --- 1. SCRIPT SEQUENCE ANIMASI LOADING (DIURUTKAN ULANG) ---
         window.addEventListener('load', function() {
             setTimeout(() => document.body.classList.add('anim-logo-in'), 100);
             setTimeout(() => document.body.classList.add('anim-line-expand'), 1000);
@@ -438,18 +448,16 @@
             else if (isDeleting && currentText === '') { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; timeoutSpeed = pauseStart; }
             setTimeout(type, timeoutSpeed);
         }
+        
         document.addEventListener("DOMContentLoaded", () => setTimeout(type, 3300));
 
-        // --- 4. SCRIPT EFEK PARALLAX (Desktop Only) ---
+        // --- 4. SCRIPT EFEK PARALLAX (MOUSE TRACKING UNTUK FOTO 3D) ---
         document.addEventListener('mousemove', function(e) {
-            // Cek apakah lebar layar > 768px (Desktop), jika ya, jalankan efek kursor
-            if(window.innerWidth > 768) {
-                const asset3D = document.getElementById('asset-3d');
-                if (asset3D) {
-                    const xAxis = (e.pageX - window.innerWidth / 2) / 30;
-                    const yAxis = (e.pageY - window.innerHeight / 2) / 30;
-                    asset3D.style.transform = `scale(1.1) translate(${xAxis}px, ${yAxis}px)`;
-                }
+            const asset3D = document.getElementById('asset-3d');
+            if (asset3D) {
+                const xAxis = (e.pageX - window.innerWidth / 2) / 30;
+                const yAxis = (e.pageY - window.innerHeight / 2) / 30;
+                asset3D.style.transform = `scale(1.1) translate(${xAxis}px, ${yAxis}px)`;
             }
         });
     </script>
