@@ -1,910 +1,327 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unggul Fatih - Portofolio</title>
+    <title>Dwi Farhan - Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zinc: {
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <!-- Phosphor Icons (Untuk ikon UI yang modern) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* =========================================
-           VARIABLES & RESET
-           ========================================= */
-        :root {
-            --bg-light: #FAFAFA;
-            --bg-dark: #050505;
-            --text-dark: #111111;
-            --text-light: #FAFAFA;
-            --text-muted: #666666;
-            --text-muted-dark: #A1A1AA;
-            --border-light: #E5E5E5;
-            --border-dark: #333333;
-            --font-main: 'Inter', sans-serif;
-            --radius-pill: 50px;
-            --radius-card: 16px;
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Animasi kursor berkedip pada Typewriter */
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: var(--font-main);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
-
-        /* =========================================
-           LOADING SCREEN
-           ========================================= */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background-color: #000;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        .loader-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #FFF;
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 4px;
-            margin-bottom: 15px;
-        }
-
-        .loader-icon {
-            background: #FFF;
-            color: #000;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            font-size: 1.1rem;
-        }
-
-        .loader-line-container {
-            width: 150px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.2);
-            overflow: hidden;
-        }
-
-        .loader-line {
-            width: 100%;
-            height: 100%;
-            background: #FFF;
-            transform: translateX(-100%);
-            animation: loadingProgress 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-        }
-
-        @keyframes loadingProgress {
-            to { transform: translateX(0); }
-        }
-
-        body.loaded #loader {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        /* =========================================
-           HEADER & NAV
-           ========================================= */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(250, 250, 250, 0.8);
+        /* Styling untuk Floating Nav */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-
-        .head-btn {
-            background: #FFF;
-            border: 1px solid var(--border-light);
-            padding: 10px 16px;
-            border-radius: var(--radius-pill);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-        }
-
-        .header-right {
-            display: flex;
-            gap: 8px;
-        }
-
-        .head-btn i { font-size: 1rem; }
-
-        /* =========================================
-           REVEAL ANIMATION (SCROLL)
-           ========================================= */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* =========================================
-           TYPOGRAPHY & GLOBAL SPACING
-           ========================================= */
-        section {
-            padding: 5rem 1.5rem;
-        }
-        
-        .section-tag {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-tag::before {
-            content: "";
-            width: 24px;
-            height: 2px;
-            background-color: currentColor;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-
-        /* =========================================
-           HERO SECTION
-           ========================================= */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-top: 6rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 1.2rem;
-        }
-
-        .hero h1 span.italic {
-            font-style: italic;
-            color: #555;
-            font-weight: 700;
-        }
-
-        .cursor {
-            display: inline-block;
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink { 50% { opacity: 0; } }
-
-        .hero p {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero p strong { color: var(--text-dark); }
-
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 2.5rem;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 16px;
-            border-radius: var(--radius-pill);
-            text-align: center;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-black {
-            background: var(--text-dark);
-            color: #FFF;
-            border: 2px solid var(--text-dark);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-dark);
-            border: 1px solid var(--border-light);
-        }
-
-        .social-row {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .social-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
-
-        /* =========================================
-           DARK SECTION (01 & 04)
-           ========================================= */
-        .section-dark {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-        }
-
-        .section-dark .section-tag { color: var(--text-muted-dark); }
-        
-        .desc-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--text-muted-dark);
-            margin-bottom: 1rem;
-        }
-
-        /* =========================================
-           MISI & NILAI (02 & 03)
-           ========================================= */
-        .card-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .feature-card {
-            background: #FFF;
-            border: 1px solid var(--border-light);
-            padding: 1.5rem;
-            border-radius: var(--radius-card);
-        }
-
-        .feature-icon {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-
-        .feature-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .feature-card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .list-features { margin-top: 2rem; }
-        .list-item {
-            margin-bottom: 2rem;
-        }
-        .list-item-head {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 0.5rem;
-        }
-        .list-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #F4F4F5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-        .list-item-head h3 { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
-        .list-item p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; padding-left: 52px; border-bottom: 1px solid var(--border-light); padding-bottom: 1.5rem;}
-        .list-item:last-child p { border-bottom: none; }
-
-        /* =========================================
-           METRIK PERFORMA (04)
-           ========================================= */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .stat-item h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.2rem; }
-        .stat-item p { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted-dark); letter-spacing: 1px;}
-
-        /* =========================================
-           TECH STACK
-           ========================================= */
-        .tech-section { text-align: center; }
-        .tech-section h2 { font-size: 2rem; font-weight: 900; line-height: 1.1; margin-bottom: 3rem; }
-        .tech-section .tag { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 1rem; display: block; letter-spacing: 1.5px;}
-        
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .tech-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .tech-icon {
-            width: 60px;
-            height: 60px;
-            background: #FFF;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-        }
-        .tech-item span { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;}
-
-        /* =========================================
-           PROJECTS
-           ========================================= */
-        .project-head { margin-bottom: 2rem; }
-        .project-head h2 { font-size: 2.2rem; font-weight: 900; margin-bottom: 1rem; }
-        .project-head p { font-size: 1rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5; }
-        .project-link { font-size: 1rem; font-weight: 600; color: var(--text-dark); text-decoration: none; display: flex; align-items: center; gap: 8px;}
-
-        .project-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-        .project-card {
-            background: #FFF;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-        .project-img {
-            width: 100%;
-            height: 220px;
-            background-color: #E5E5E5;
-            object-fit: cover;
-        }
-        .project-info { padding: 1.5rem; }
-        .project-tags {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-        .ptag {
-            padding: 6px 12px;
-            border: 1px solid var(--border-light);
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .project-info h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .project-info p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
-
-        /* =========================================
-           CONTACT FORM
-           ========================================= */
-        .contact-section h2 { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; line-height: 1; margin-bottom: 2rem; }
-        .contact-box {
-            background: #FFF;
-            padding: 2rem 1.5rem;
-            border-radius: 24px;
-            border: 1px solid var(--border-light);
-        }
-        .c-head h3 { font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem; }
-        .c-head p { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
-        .c-head h4 { font-size: 1.2rem; font-weight: 700; margin-bottom: 2rem; }
-
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .form-control {
-            width: 100%;
-            padding: 16px;
-            background: #F4F4F5;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 500;
-            outline: none;
-        }
-        .form-control::placeholder { color: #A1A1AA; }
-        textarea.form-control { height: 120px; resize: none; }
-
-        .radio-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 2rem;
-        }
-        .radio-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .radio-label input {
-            width: 18px; height: 18px; accent-color: var(--text-dark);
-        }
-
-        /* =========================================
-           FOOTER
-           ========================================= */
-        footer {
-            padding: 4rem 1.5rem 2rem;
-            background: #FFF;
-            border-top: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
-        }
-        .foot-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-        .foot-logo .icon {
-            width: 36px; height: 36px;
-            background: var(--text-dark); color: #FFF;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 10px; font-size: 1rem; font-weight: 700;
-        }
-        footer p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem;}
-        
-        .foot-links-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        .link-col h4 { font-size: 1rem; font-weight: 800; margin-bottom: 1rem; }
-        .link-col a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 0.8rem; font-weight: 500;}
-        
-        .watermark {
-            font-size: 6rem;
-            font-weight: 900;
-            color: rgba(0,0,0,0.03);
-            text-align: center;
-            letter-spacing: -2px;
-            margin-bottom: 1rem;
-            line-height: 1;
-        }
-        
-        .foot-bottom {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-light);
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        .foot-bottom-links { display: flex; gap: 1rem; }
-        .foot-bottom-links a { color: var(--text-muted); text-decoration: none; }
-
-        /* Responsiveness for larger screens (Desktop scale) */
-        @media (min-width: 768px) {
-            section { padding: 6rem 5%; }
-            .hero h1 { font-size: 5rem; }
-            .btn-group { flex-direction: row; }
-            .btn { width: auto; padding: 16px 32px; }
-            .card-grid, .stats-grid { grid-template-columns: repeat(3, 1fr); }
-            .project-list { grid-template-columns: repeat(2, 1fr); display: grid; }
-            .tech-grid { grid-template-columns: repeat(6, 1fr); }
-            .radio-group { grid-template-columns: repeat(3, 1fr); }
+        .dark .glass-nav {
+            background: rgba(24, 24, 27, 0.8);
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-zinc-900 transition-colors duration-300 dark:bg-zinc-950 dark:text-zinc-50 overflow-x-hidden">
 
-    <div id="loader">
-        <div class="loader-logo">
-            <div class="loader-icon">UF</div>
-            UNGGUL
+    <!-- Top Navigation -->
+    <nav class="flex justify-between items-center px-6 py-4 max-w-5xl mx-auto" data-aos="fade-down">
+        <!-- Area Logo: Silakan ganti dengan logo Anda nanti -->
+        <div class="flex items-center gap-2 bg-white dark:bg-zinc-900 px-4 py-2 rounded-full shadow-sm border border-gray-200 dark:border-zinc-800">
+            <span class="font-bold text-lg">DF</span>
+            <span class="font-semibold text-sm">DWI FARHAN</span>
         </div>
-        <div class="loader-line-container">
-            <div class="loader-line"></div>
+        
+        <div class="flex items-center gap-4">
+            <button class="flex items-center gap-1 text-sm font-medium hover:opacity-70">
+                <i class="ph ph-translate text-lg"></i> ID
+            </button>
+            <button id="theme-toggle" class="p-2 bg-gray-200 dark:bg-zinc-800 rounded-full hover:opacity-80 transition">
+                <i class="ph ph-moon text-xl dark:hidden"></i>
+                <i class="ph ph-sun text-xl hidden dark:block text-white"></i>
+            </button>
         </div>
-    </div>
+    </nav>
 
-    <header>
-        <div class="head-btn">
-            <div class="loader-icon" style="width: 24px; height: 24px; font-size: 0.6rem; border-radius: 6px; background: #111; color: #FFF;">UF</div>
-            UNGGUL
+    <!-- Hero Section -->
+    <header class="max-w-4xl mx-auto px-6 pt-24 pb-32 text-center flex flex-col items-center justify-center min-h-[70vh]" id="home">
+        <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-tight mb-6" data-aos="zoom-in" data-aos-duration="1000">
+            Dwi Farhan,<br>
+            <span id="typewriter" class="text-zinc-600 dark:text-zinc-400"></span><span class="cursor-blink">_</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mb-10" data-aos="fade-up" data-aos-delay="200">
+            Halo, saya <strong>Dwi Farhan</strong> — seorang Fullstack Web Developer yang fokus dalam membangun produk digital yang modern, cepat, dan estetis.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto" data-aos="fade-up" data-aos-delay="400">
+            <a href="#works" class="px-8 py-4 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 rounded-full font-semibold flex items-center justify-center gap-2 hover:scale-105 transition-transform">
+                Lihat Proyek <i class="ph-bold ph-arrow-right"></i>
+            </a>
+            <a href="#contact" class="px-8 py-4 bg-gray-200 text-zinc-900 dark:bg-zinc-800 dark:text-white rounded-full font-semibold flex items-center justify-center hover:scale-105 transition-transform">
+                Hubungi Saya
+            </a>
         </div>
-        <div class="header-right">
-            <div class="head-btn">
-                <i class="fa-solid fa-language"></i> ID
-            </div>
-            <div class="head-btn">
-                <i class="fa-regular fa-moon"></i>
-            </div>
+        
+        <!-- Social Links -->
+        <div class="flex gap-6 mt-12 text-2xl text-gray-500" data-aos="fade-up" data-aos-delay="600">
+            <a href="#" class="hover:text-zinc-900 dark:hover:text-white transition"><i class="ph ph-github-logo"></i></a>
+            <a href="#" class="hover:text-zinc-900 dark:hover:text-white transition"><i class="ph ph-twitter-logo"></i></a>
+            <a href="#" class="hover:text-zinc-900 dark:hover:text-white transition"><i class="ph ph-linkedin-logo"></i></a>
+            <a href="#" class="hover:text-zinc-900 dark:hover:text-white transition"><i class="ph ph-instagram-logo"></i></a>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1 class="reveal">Unggul Fatih,<br><span class="italic" id="typewriter"></span><span class="cursor">_</span></h1>
-            <p class="reveal">Halo, saya <strong>Unggul Fatih</strong> — seorang Fullstack Web Developer yang fokus dalam modern, cepat, dan estetis.</p>
-            <div class="btn-group reveal">
-                <a href="#" class="btn btn-black">Lihat Proyek <i class="fa-solid fa-arrow-right"></i></a>
-                <a href="#" class="btn btn-outline">Hubungi Saya</a>
-            </div>
-            <div class="social-row reveal">
-                <a href="#" class="social-circle"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="social-circle"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#" class="social-circle"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" class="social-circle"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-        </section>
-
-        <section class="section-dark reveal">
-            <div class="section-tag">— 01 — TINJAUAN EKSEKUTIF</div>
-            <h2 class="section-title">KEPEMIMPINAN DIGITAL VISIONER</h2>
-            <p class="desc-text">Dipimpin oleh Unggul Fatih, Founder & Lead Strategist di Softus, berdedikasi untuk menjembatani kesenjangan digital melalui rekayasa teknologi kelas dunia.</p>
-            <p class="desc-text">Membangun standar teknologi global untuk memberdayakan potensi lokal melalui kepemimpinan digital yang strategis dan inovatif.</p>
-        </section>
-
-        <section class="reveal">
-            <div class="section-tag">— 02 — MISI STRATEGIS</div>
-            <h2 class="section-title">MEMBANTU UMKM GO DIGITAL</h2>
-            <p class="desc-text" style="color: var(--text-muted); margin-bottom: 2rem;">Misi kami adalah mendemokrasikan teknologi canggih agar dapat diakses oleh UMKM Indonesia untuk bersaing di pasar global.</p>
-            
-            <div class="card-grid">
-                <div class="feature-card">
-                    <i class="fa-solid fa-bullseye feature-icon"></i>
-                    <h3>PRESISI</h3>
-                    <p>Baris kode dengan ketelitian tinggi untuk keamanan maksimal.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-bolt feature-icon"></i>
-                    <h3>KECEPATAN</h3>
-                    <p>Optimasi kecepatan ekstrim untuk UX tanpa hambatan.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fa-solid fa-rocket feature-icon"></i>
-                    <h3>PERTUMBUHAN</h3>
-                    <p>Solusi skalabel untuk pertumbuhan bisnis berkelanjutan.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="reveal" style="padding-top: 0;">
-            <div class="section-tag">— 03 — NILAI UTAMA</div>
-            <h2 class="section-title">INOVASI.<br>INTEGRITAS.<br>DAMPAK.</h2>
-            
-            <div class="list-features">
-                <div class="list-item">
-                    <div class="list-item-head">
-                        <div class="list-icon"><i class="fa-solid fa-globe"></i></div>
-                        <h3>STANDAR GLOBAL</h3>
-                    </div>
-                    <p>Menerapkan standar pengembangan internasional untuk memberdayakan kearifan lokal.</p>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-head">
-                        <div class="list-icon"><i class="fa-regular fa-lightbulb"></i></div>
-                        <h3>BERORIENTASI SOLUSI</h3>
-                    </div>
-                    <p>Kami tidak hanya menjual jasa, kami memberikan solusi nyata bagi tantangan bisnis Anda.</p>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-head">
-                        <div class="list-icon"><i class="fa-solid fa-chart-line"></i></div>
-                        <h3>KEBERLANJUTAN</h3>
-                    </div>
-                    <p>Membangun sistem yang tangguh dan mudah dikelola untuk jangka panjang.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-dark reveal">
-            <div class="section-tag">— 04 — METRIK PERFORMA</div>
-            <h2 class="section-title">REKAM JEJAK TERPERCAYA</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h2>50+</h2>
-                    <p>PROYEK SELESAI</p>
-                </div>
-                <div class="stat-item">
-                    <h2>99%</h2>
-                    <p>KEPUASAN KLIEN</p>
-                </div>
-                <div class="stat-item">
-                    <h2>24/7</h2>
-                    <p>DUKUNGAN 24/7</p>
-                </div>
-                <div class="stat-item">
-                    <h2>2+</h2>
-                    <p>TAHUN PENGALAMAN</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="tech-section reveal">
-            <span class="tag">KEAHLIAN & PENGALAMAN</span>
-            <h2>Bekerja dengan Teknologi & Stack Terbaru</h2>
-            
-            <div class="tech-grid">
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-wordpress-plain colored"></i></div><span>WORDPRESS</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-tailwindcss-plain colored"></i></div><span>TAILWIND</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-react-original colored"></i></div><span>REACT.JS</span></div>
-                
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-nextjs-plain" style="color: #000;"></i></div><span>NEXT.JS</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-typescript-plain colored"></i></div><span>TYPESCRIPT</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-nodejs-plain colored"></i></div><span>NODE.JS</span></div>
-                
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-postgresql-plain colored"></i></div><span>POSTGRESQL</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-mysql-plain colored"></i></div><span>MYSQL</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-play" style="transform: rotate(-90deg); font-size:1.5rem;"></i></div><span>VERCEL</span></div>
-                
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-github-original" style="color: #000;"></i></div><span>GITHUB</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="fa-brands fa-cloudflare" style="color: #F38020;"></i></div><span>CLOUDFLARE</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-c" style="color: #FF6C2C;"></i><i class="fa-solid fa-p" style="color: #FF6C2C; margin-left:-5px;"></i></div><span>CPANEL</span></div>
-                
-                <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-cube"></i></div><span>OPENROUTER</span></div>
-                <div class="tech-item"><div class="tech-icon">🤗</div><span>HUGGINGFACE</span></div>
-                <div class="tech-item"><div class="tech-icon">🦙</div><span>OLLAMA</span></div>
-                
-                <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-network-wired" style="color: #EA4C89;"></i></div><span>N8N</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-googlecloud-plain colored"></i></div><span>GOOGLE CLOUD</span></div>
-                <div class="tech-item"><div class="tech-icon"><i class="devicon-express-original" style="color: #000;"></i></div><span>EXPRESS</span></div>
-            </div>
-        </section>
-
-        <section class="reveal">
-            <div class="project-head">
-                <h2>Karya Terpilih</h2>
-                <p>Koleksi proyek dari <strong>PT Software Unggul Solutions (Softus)</strong>, tempat kami memadukan desain dan teknologi.</p>
-                <a href="#" class="project-link">Lihat semua proyek <i class="fa-solid fa-arrow-right"></i></a>
+    <!-- Black Section: Visi & Misi -->
+    <section class="bg-zinc-900 text-white py-24" id="about">
+        <div class="max-w-5xl mx-auto px-6">
+            <div data-aos="fade-up">
+                <span class="text-sm font-mono tracking-widest text-gray-400 uppercase mb-4 block">01 — Tinjauan Eksekutif</span>
+                <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">KEPEMIMPINAN<br>DIGITAL VISIONER</h2>
+                <p class="text-gray-400 text-lg max-w-2xl leading-relaxed">
+                    Berdedikasi untuk menjembatani kesenjangan digital melalui rekayasa teknologi kelas dunia. Membangun standar teknologi global untuk memberdayakan potensi lokal melalui pendekatan yang strategis dan inovatif.
+                </p>
             </div>
 
-            <div class="project-list">
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/600x400?text=Webnity.id+Preview" alt="Webnity" class="project-img">
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span class="ptag">NEXT.JS</span>
-                            <span class="ptag">AI</span>
-                            <span class="ptag">SAAS</span>
-                        </div>
-                        <h3>Webnity.id</h3>
-                        <p>Desain UI/UX</p>
-                    </div>
+            <div class="mt-32 grid md:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <span class="text-sm font-mono tracking-widest text-gray-400 uppercase mb-4 block">02 — Misi Strategis</span>
+                    <h2 class="text-4xl font-black mb-6">MEMBANTU UMKM<br>GO DIGITAL</h2>
+                    <p class="text-gray-400 mb-8">Misi kami adalah mendemokrasikan teknologi canggih agar dapat diakses oleh UMKM Indonesia untuk bersaing di pasar global.</p>
                 </div>
-
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/600x400?text=Bukamenu+Preview" alt="Bukamenu" class="project-img">
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span class="ptag">NEXT.JS</span>
-                            <span class="ptag">SAAS</span>
-                            <span class="ptag">F&B</span>
-                        </div>
-                        <h3>Bukamenu.id</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-aos="fade-left">
+                    <div class="bg-zinc-800 p-6 rounded-3xl">
+                        <i class="ph ph-target text-3xl mb-4 text-white"></i>
+                        <h3 class="font-bold mb-2">Presisi</h3>
+                        <p class="text-sm text-gray-400">Baris kode dengan ketelitian tinggi untuk keamanan maksimal.</p>
                     </div>
-                </div>
-                
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/600x400?text=Ticket+Penida+Preview" alt="Ticket Penida" class="project-img">
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span class="ptag">LANDING PAGE</span>
-                            <span class="ptag">BOOKING</span>
-                        </div>
-                        <h3>Ticket Penida</h3>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <img src="https://via.placeholder.com/600x400?text=Villa+Omah+Preview" alt="Villa Omah" class="project-img">
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span class="ptag">SYSTEM BOOKING</span>
-                            <span class="ptag">DESIGN</span>
-                        </div>
-                        <h3>Villa Omah Lembah</h3>
-                    </div>
-                </div>
-
-                 <div class="project-card">
-                    <img src="https://via.placeholder.com/600x400?text=Pilihan+Rakyat+Preview" alt="Pilihan Rakyat" class="project-img">
-                    <div class="project-info">
-                        <div class="project-tags">
-                            <span class="ptag">NEWS</span>
-                            <span class="ptag">SEO</span>
-                        </div>
-                        <h3>Pilihan Rakyat News</h3>
+                    <div class="bg-zinc-800 p-6 rounded-3xl">
+                        <i class="ph ph-lightning text-3xl mb-4 text-white"></i>
+                        <h3 class="font-bold mb-2">Kecepatan</h3>
+                        <p class="text-sm text-gray-400">Optimasi kecepatan ekstrem untuk UX tanpa hambatan.</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section class="contact-section reveal">
-            <h2>IMPIAN ANDA MENJADI KENYATAAN</h2>
-            
-            <div class="contact-box">
-                <div class="c-head">
-                    <h3>MARI BICARA! 👋</h3>
-                    <p>EMAIL KAMI DI</p>
-                    <h4>unggulmf01@gmail.com</h4>
-                </div>
-
-                <form>
-                    <div class="form-group">
-                        <label>NAMA ANDA</label>
-                        <input type="text" class="form-control" placeholder="Nama Anda">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>EMAIL</label>
-                        <input type="email" class="form-control" placeholder="Email">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>DESKRIPSIKAN IDE PROYEK ANDA</label>
-                        <textarea class="form-control" placeholder="Deskripsikan ide proyek Anda secara singkat..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>SAYA MENCARI...</label>
-                        <div class="radio-group">
-                            <label class="radio-label"><input type="radio" name="need"> WEBSITE</label>
-                            <label class="radio-label"><input type="radio" name="need"> APLIKASI MOBILE</label>
-                            <label class="radio-label"><input type="radio" name="need"> APLIKASI WEB</label>
-                            <label class="radio-label"><input type="radio" name="need"> E-COMMERCE</label>
-                            <label class="radio-label"><input type="radio" name="need"> IDENTITAS BRAND</label>
-                            <label class="radio-label"><input type="radio" name="need"> STRATEGI BRAND</label>
-                            <label class="radio-label"><input type="radio" name="need"> LAINNYA</label>
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn btn-black" style="font-weight: 700; font-size: 1.1rem; padding: 20px;">KIRIM PESAN</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="foot-logo">
-            <div class="icon">UF</div>
-            UNGGUL FATIH
         </div>
-        <p>Unggul Fatih empowers digital experiences with high-performance, aesthetically pleasing web solutions that push the boundaries of the modern web.</p>
+    </section>
 
-        <div class="social-row" style="justify-content: flex-start; margin-bottom: 2rem;">
-            <a href="#" class="social-circle"><i class="fa-brands fa-github"></i></a>
-            <a href="#" class="social-circle"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#" class="social-circle"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="#" class="social-circle"><i class="fa-brands fa-instagram"></i></a>
+    <!-- Tech Stack / Keahlian -->
+    <section class="py-24 max-w-5xl mx-auto px-6 text-center">
+        <div data-aos="fade-up">
+            <span class="text-sm font-mono tracking-widest text-gray-500 uppercase mb-4 block">Keahlian & Pengalaman</span>
+            <h2 class="text-3xl md:text-4xl font-black mb-16">Bekerja dengan<br>Teknologi & Stack Terbaru</h2>
+        </div>
+        
+        <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center justify-items-center opacity-70" data-aos="fade-up" data-aos-delay="200">
+            <!-- Ikon Tech Stack (Bisa diganti dengan SVG Logo asli nantinya) -->
+            <div class="flex flex-col items-center gap-2"><i class="ph ph-file-code text-5xl"></i><span class="text-xs font-bold">HTML/CSS</span></div>
+            <div class="flex flex-col items-center gap-2"><i class="ph ph-file-js text-5xl"></i><span class="text-xs font-bold">JAVASCRIPT</span></div>
+            <div class="flex flex-col items-center gap-2"><i class="ph ph-atom text-5xl"></i><span class="text-xs font-bold">REACT.JS</span></div>
+            <div class="flex flex-col items-center gap-2"><i class="ph ph-wind text-5xl"></i><span class="text-xs font-bold">TAILWIND</span></div>
+            <div class="flex flex-col items-center gap-2"><i class="ph ph-database text-5xl"></i><span class="text-xs font-bold">MYSQL</span></div>
+            <div class="flex flex-col items-center gap-2"><i class="ph ph-github-logo text-5xl"></i><span class="text-xs font-bold">GITHUB</span></div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="py-24 bg-gray-100 dark:bg-zinc-900/50" id="works">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-12" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">Karya Terpilih</h2>
+                <p class="text-gray-600 dark:text-gray-400">Koleksi proyek dari pengalaman pengembangan web, memadukan desain dan performa.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Tempat Anda Memasukkan Project Sendiri Nanti -->
+                <!-- Project Card 1 -->
+                <div class="group bg-white dark:bg-zinc-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300" data-aos="fade-up">
+                    <div class="h-64 bg-gray-200 dark:bg-zinc-800 w-full flex items-center justify-center text-gray-400">
+                        <!-- MASUKKAN GAMBAR PROJECT ANDA DI SINI -->
+                        [ Gambar / Mockup Proyek 1 ]
+                    </div>
+                    <div class="p-8">
+                        <div class="flex gap-2 mb-4 flex-wrap">
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-zinc-800 text-xs font-bold rounded-full">WEB APP</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-zinc-800 text-xs font-bold rounded-full">TAILWIND</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-500 transition-colors">Nama Proyek Anda</h3>
+                        <p class="text-gray-500 text-sm">Deskripsi singkat mengenai proyek yang telah Anda buat dan masalah yang diselesaikan.</p>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="group bg-white dark:bg-zinc-900 rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-64 bg-gray-200 dark:bg-zinc-800 w-full flex items-center justify-center text-gray-400">
+                        <!-- MASUKKAN GAMBAR PROJECT ANDA DI SINI -->
+                        [ Gambar / Mockup Proyek 2 ]
+                    </div>
+                    <div class="p-8">
+                        <div class="flex gap-2 mb-4 flex-wrap">
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-zinc-800 text-xs font-bold rounded-full">SYSTEM</span>
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-zinc-800 text-xs font-bold rounded-full">JAVASCRIPT</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-blue-500 transition-colors">Nama Proyek Anda 2</h3>
+                        <p class="text-gray-500 text-sm">Deskripsi singkat mengenai proyek yang telah Anda buat dan masalah yang diselesaikan.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="py-24 max-w-3xl mx-auto px-6" id="contact">
+        <div data-aos="fade-up" class="mb-12">
+            <h2 class="text-sm font-bold text-gray-500 mb-2">IMPIAN ANDA MENJADI KENYATAAN</h2>
+            <h1 class="text-5xl font-black mb-4">MARI BICARA! 👋</h1>
+            <p class="text-sm font-semibold">EMAIL KAMI DI</p>
+            <a href="mailto:emailanda@gmail.com" class="text-2xl font-bold hover:underline">emailanda@gmail.com</a>
         </div>
 
-        <div class="foot-links-grid">
-            <div class="link-col">
-                <h4>Sitemap</h4>
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Works</a>
-                <a href="#">Contact</a>
+        <form class="space-y-6 bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-zinc-800" data-aos="fade-up" data-aos-delay="100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Nama Anda</label>
+                    <input type="text" placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-zinc-800 border-none focus:ring-2 focus:ring-zinc-900 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Email</label>
+                    <input type="email" placeholder="Email" class="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-zinc-800 border-none focus:ring-2 focus:ring-zinc-900 outline-none transition">
+                </div>
             </div>
-            <div class="link-col">
-                <h4>Connect</h4>
-                <a href="#">Email</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Twitter</a>
-                <a href="#">TikTok</a>
+            
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Deskripsikan ide proyek Anda</label>
+                <textarea rows="4" placeholder="Deskripsikan ide proyek Anda secara singkat..." class="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-zinc-800 border-none focus:ring-2 focus:ring-zinc-900 outline-none transition"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-4 uppercase">Saya Mencari...</label>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded text-zinc-900 focus:ring-zinc-900 bg-gray-100 dark:bg-zinc-800 border-none">
+                        <span class="text-sm font-medium">Website</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded text-zinc-900 focus:ring-zinc-900 bg-gray-100 dark:bg-zinc-800 border-none">
+                        <span class="text-sm font-medium">Aplikasi Web</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="w-4 h-4 rounded text-zinc-900 focus:ring-zinc-900 bg-gray-100 dark:bg-zinc-800 border-none">
+                        <span class="text-sm font-medium">E-Commerce</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="button" class="w-full py-4 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-bold rounded-xl hover:opacity-90 transition mt-4">
+                KIRIM PESAN
+            </button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-24 pb-32 px-6 max-w-5xl mx-auto border-t border-gray-200 dark:border-zinc-800 text-center md:text-left">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+            <div class="md:col-span-1">
+                <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                    <span class="px-2 py-1 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 rounded font-bold text-sm">DF</span>
+                    <span class="font-bold tracking-wider">DWI FARHAN</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Menciptakan pengalaman digital dengan performa tinggi, desain yang memanjakan mata, dan solusi web yang mendobrak batas dunia modern.
+                </p>
+            </div>
+            
+            <div class="flex justify-center md:justify-end gap-16 md:col-span-2">
+                <div>
+                    <h4 class="font-bold mb-4">Sitemap</h4>
+                    <ul class="space-y-2 text-gray-500 text-sm">
+                        <li><a href="#home" class="hover:text-zinc-900 dark:hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-zinc-900 dark:hover:text-white transition">About</a></li>
+                        <li><a href="#works" class="hover:text-zinc-900 dark:hover:text-white transition">Works</a></li>
+                        <li><a href="#contact" class="hover:text-zinc-900 dark:hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-gray-500 text-sm">
+                        <li><a href="#" class="hover:text-zinc-900 dark:hover:text-white transition">Email</a></li>
+                        <li><a href="#" class="hover:text-zinc-900 dark:hover:text-white transition">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-zinc-900 dark:hover:text-white transition">Github</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div class="watermark">UNGGUL</div>
-
-        <div class="foot-bottom">
-            <span>&copy; 2026 Unggul. All rights reserved.</span>
-            <div class="foot-bottom-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
+        <h1 class="text-[15vw] leading-none font-black text-center text-gray-100 dark:text-zinc-900 tracking-tighter select-none">FARHAN</h1>
+        
+        <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 mt-8 font-medium">
+            <p>&copy; 2026 Dwi Farhan. All rights reserved.</p>
+            <div class="flex gap-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-zinc-900 dark:hover:text-white">Privacy Policy</a>
+                <a href="#" class="hover:text-zinc-900 dark:hover:text-white">Terms of Service</a>
             </div>
         </div>
     </footer>
 
+    <!-- Floating Bottom Navigation -->
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass-nav rounded-full px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 dark:border-zinc-700/30 z-50 transition-all">
+        <ul class="flex items-center gap-8 text-2xl text-zinc-500 dark:text-zinc-400">
+            <li><a href="#home" class="hover:text-zinc-900 dark:hover:text-white transition-colors"><i class="ph-fill ph-house"></i></a></li>
+            <li><a href="#about" class="hover:text-zinc-900 dark:hover:text-white transition-colors"><i class="ph ph-user"></i></a></li>
+            <li><a href="#works" class="hover:text-zinc-900 dark:hover:text-white transition-colors"><i class="ph ph-code"></i></a></li>
+            <li><a href="#contact" class="hover:text-zinc-900 dark:hover:text-white transition-colors"><i class="ph ph-envelope-simple"></i></a></li>
+        </ul>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // 1. Loading Screen
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-            }, 1600); // Selesai dalam 1.6 detik (menyesuaikan animasi garis)
+        // 1. Inisialisasi Animasi Scroll (AOS)
+        AOS.init({
+            once: true, // Animasi hanya berjalan sekali saat di-scroll ke bawah
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
         });
 
-        // 2. Typewriter Effect
-        const words = ["Executive Leader_", "Technical Architect_", "Fullstack Developer_"];
+        // 2. Logic Typewriter Effect
+        const words = ["Executive Leader", "Technical Architect", "Fullstack Developer", "Informatics Student"];
         let i = 0;
         let timer;
 
@@ -914,10 +331,10 @@
                 if (word.length > 0) {
                     document.getElementById('typewriter').innerHTML += word.shift();
                 } else {
-                    setTimeout(deletingEffect, 2000);
+                    setTimeout(deletingEffect, 2000); // Tunggu 2 detik sebelum dihapus
                     return false;
-                };
-                timer = setTimeout(loopTyping, 100);
+                }
+                timer = setTimeout(loopTyping, 100); // Kecepatan mengetik
             };
             loopTyping();
         }
@@ -932,35 +349,40 @@
                     if (words.length > (i + 1)) {
                         i++;
                     } else {
-                        i = 0;
-                    };
-                    setTimeout(typingEffect, 500);
+                        i = 0; // Ulangi dari awal
+                    }
+                    typingEffect();
                     return false;
-                };
-                timer = setTimeout(loopDeleting, 50);
+                }
+                timer = setTimeout(loopDeleting, 50); // Kecepatan menghapus
             };
             loopDeleting();
         }
-        
-        // Mulai typewriter setelah loading selesai
-        setTimeout(typingEffect, 2000); 
 
-        // 3. Scroll Reveal Animation
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 50; // Jarak trigger animasi
+        // Mulai efek Typewriter
+        typingEffect();
 
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+        // 3. Logic Dark Mode Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        themeToggleBtn.addEventListener('click', function() {
+            html.classList.toggle('dark');
+            
+            // Simpan preferensi di LocalStorage
+            if(html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
             }
+        });
+
+        // Cek preferensi tema sebelumnya (Opsional, agar tema tersimpan saat direfresh)
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
         }
-        window.addEventListener("scroll", reveal);
-        // Trigger sekali saat load
-        setTimeout(reveal, 1800);
     </script>
 </body>
 </html>
