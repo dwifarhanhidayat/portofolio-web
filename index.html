@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio - Dwi Farhan Hidayat</title>
     
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
     
+    <!-- FontAwesome (Ikon) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -43,7 +45,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             height: 100vh; 
-            overflow: hidden; /* Secara default di desktop tidak bisa discroll (muat 1 layar) */
+            overflow: hidden; /* Mengunci layar agar tidak bisa discroll (App-like feel) */
             display: flex;
             flex-direction: column;
         }
@@ -104,7 +106,7 @@
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideDownFade { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- STICKY HEADER / NAVBAR --- */
+        /* --- STICKY HEADER / NAVBAR (DESKTOP) --- */
         .header-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -121,18 +123,18 @@
         }
         .logo-img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #E5E5E5; }
 
-        nav {
+        .desktop-nav {
             background: var(--card-bg); padding: 6px; border-radius: 50px;
             border: 1px solid var(--border-color); display: flex; gap: 5px;
         }
-        nav a {
+        .desktop-nav a {
             text-decoration: none; color: var(--text-muted); padding: 10px 20px;
             border-radius: 50px; font-weight: 500; font-size: 0.95rem;
             display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;
         }
-        nav a.active { background-color: var(--text-main); color: var(--bg-color); }
-        nav a:hover:not(.active) { color: var(--text-main); background-color: rgba(0,0,0,0.05); }
-        body.dark-mode nav a:hover:not(.active) { background-color: rgba(255,255,255,0.1); }
+        .desktop-nav a.active { background-color: var(--text-main); color: var(--bg-color); }
+        .desktop-nav a:hover:not(.active) { color: var(--text-main); background-color: rgba(0,0,0,0.05); }
+        body.dark-mode .desktop-nav a:hover:not(.active) { background-color: rgba(255,255,255,0.1); }
 
         .header-right { display: flex; align-items: center; gap: 12px; }
         .icon-btn, .lang-switch {
@@ -141,11 +143,16 @@
         }
         .icon-btn:hover, .lang-switch:hover { background-color: var(--border-color); }
 
+        /* Menyembunyikan menu bawah jika di PC/Desktop */
+        .mobile-bottom-nav {
+            display: none;
+        }
+
         /* --- HERO SECTION --- */
         main { flex: 1; display: flex; align-items: center; padding-top: 80px; }
         .hero { display: flex; align-items: center; justify-content: space-between; max-width: 1300px; margin: 0 auto; padding: 0 4rem; gap: 4rem; width: 100%; }
         .hero-content { flex: 1.2; max-width: 650px; }
-        .hero-content h1 { font-size: 4rem; line-height: 1.15; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -2px; }
+        .hero-content h1 { font-size: 4.5rem; line-height: 1.15; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -2px; }
 
         .typewriter-text { color: #71717A; font-style: italic; font-weight: 800; display: inline-block; }
         .cursor { color: #71717A; font-style: italic; font-weight: 800; display: inline-block; animation: blink 1s step-end infinite; }
@@ -155,14 +162,14 @@
         .hero-content p strong { color: var(--text-main); font-weight: 600; }
 
         .cta-buttons { display: flex; gap: 1rem; margin-bottom: 2.5rem; }
-        .btn { text-decoration: none; padding: 14px 28px; border-radius: 50px; font-weight: 500; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+        .btn { text-decoration: none; padding: 14px 28px; border-radius: 50px; font-weight: 500; font-size: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; }
         .btn-primary { background-color: var(--text-main); color: var(--bg-color); border: 1px solid var(--text-main); }
         .btn-primary:hover { opacity: 0.8; }
         .btn-secondary { background-color: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
         .btn-secondary:hover { background-color: var(--border-color); }
 
         .social-icons { display: flex; gap: 1rem; }
-        .social-icons a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--border-color); color: var(--text-main); text-decoration: none; font-size: 1.2rem; background-color: var(--card-bg); }
+        .social-icons a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--border-color); color: var(--text-main); text-decoration: none; font-size: 1.2rem; background-color: var(--card-bg); transition: all 0.3s ease;}
         .social-icons a:hover { transform: translateY(-2px); border-color: var(--text-main); }
 
         /* --- GAMBAR 3D --- */
@@ -179,117 +186,158 @@
         .floating-card p { font-size: 0.85rem; font-weight: 600; margin: 0; line-height: 1.3; }
 
         /* =========================================
-           RESPONSIVE DESIGN (TAMPILAN ANDROID/MOBILE) 
+           RESPONSIVE DESIGN KHUSUS ANDROID/MOBILE
+           Sesuai dengan referensi "unggul.jpeg"
            ========================================= */
-        @media (max-width: 1024px) {
-            /* Tampilan Tablet */
-            body { height: auto; overflow-x: hidden; overflow-y: auto; }
-            main { padding-top: 120px; }
-            .hero { flex-direction: column; padding: 0 2rem; gap: 2rem; }
-            .hero-content h1 { font-size: 3.5rem; }
-            .hero-image { width: 100%; height: 350px; max-width: 100%; margin-bottom: 4rem;}
-            .floating-card { left: 20px; bottom: -20px; }
-        }
-
         @media (max-width: 768px) {
-            /* Tampilan HP / Android seperti di video */
             body { 
-                height: auto; 
-                overflow-x: hidden; 
-                overflow-y: auto; /* Mengizinkan scroll ke bawah */
+                overflow: hidden; /* Dikunci agar pas 1 layar seperti App */
             }
             
             header { 
-                padding: 1rem 1.5rem; /* Padding navbar disesuaikan untuk HP */
+                padding: 1.5rem 1.5rem; 
             }
             
-            nav { 
-                display: none; /* Menyembunyikan menu tengah (Beranda, Tentang, Karya, dll) */
+            /* Menyembunyikan menu teks atas */
+            .desktop-nav { 
+                display: none; 
             } 
             
+            /* Menampilkan menu pil melayang di bawah layar */
+            .mobile-bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--card-bg);
+                padding: 10px 20px;
+                border-radius: 50px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                border: 1px solid var(--border-color);
+                gap: 20px;
+                z-index: 1000;
+                opacity: 0; /* Mulai disembunyikan untuk animasi awal */
+            }
+
+            body.dark-mode .mobile-bottom-nav { box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+            
+            /* Memunculkan navbar bawah mengikuti animasi konten */
+            body.loaded .mobile-bottom-nav {
+                animation: slideUpFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.8s;
+            }
+
+            .mobile-bottom-nav a {
+                color: var(--text-muted);
+                font-size: 1.2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-bottom-nav a.active {
+                color: var(--text-main);
+                background-color: rgba(0,0,0,0.05);
+            }
+            
+            body.dark-mode .mobile-bottom-nav a.active { background-color: rgba(255,255,255,0.1); }
+            
             main { 
-                padding-top: 100px; 
+                padding-top: 0; 
+                display: flex;
+                align-items: center; /* Konten pas di tengah vertikal */
+                justify-content: center;
             }
             
             .hero { 
                 padding: 0 1.5rem; 
-                gap: 1.5rem;
+                gap: 0;
+                flex-direction: column;
+                justify-content: center;
+                margin-top: -60px; /* Ditarik sedikit ke atas agar seimbang */
             }
             
+            /* HILANGKAN GAMBAR 3D DAN KARTU KLIEN SEPENUHNYA */
+            .hero-image {
+                display: none !important;
+            }
+
             .hero-content {
                 display: flex;
                 flex-direction: column;
-                align-items: center; /* Membuat teks di tengah */
+                align-items: center; 
                 text-align: center;
+                width: 100%;
             }
             
+            /* Tipografi di-resize meniru gaya 'unggul.jpeg' */
             .hero-content h1 { 
-                font-size: 2.5rem; /* Ukuran font lebih kecil untuk HP */
-                line-height: 1.2;
+                font-size: 3rem; /* Font rapi dan proporsional */
+                line-height: 1.1;
+                margin-bottom: 1rem;
             }
             
+            .typewriter-text, .cursor {
+                font-size: 3rem;
+            }
+
             .hero-content p { 
                 text-align: center; 
                 margin: 0 auto 2rem; 
                 font-size: 1rem;
+                line-height: 1.6;
+                padding: 0 10px; /* Agar paragraf tidak terlalu nempel tepi layar */
             }
             
             .cta-buttons { 
-                flex-direction: column; /* Tombol bertumpuk atas-bawah */
+                flex-direction: column; 
                 width: 100%; 
                 gap: 12px; 
                 margin-bottom: 2rem;
             }
             
             .btn { 
-                width: 100%; /* Tombol melebar full seperti di video */
-                justify-content: center; 
+                width: 100%; 
                 padding: 16px 28px; 
+                font-size: 1.05rem;
             }
             
             .social-icons { 
                 justify-content: center; 
                 width: 100%; 
-                margin-bottom: 2rem;
-            }
-
-            .hero-image {
-                width: 100%;
-                height: 300px;
-                margin-bottom: 3rem;
-            }
-            
-            .floating-card {
-                padding: 1rem;
-                left: 10px; /* Merapikan posisi floating card di HP */
-                right: 10px;
-                bottom: -20px;
-                align-items: center;
-                text-align: center;
+                gap: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- LOADING SCREEN HORIZONTAL SPLIT DENGAN FADE IN -->
     <div id="loading-screen">
         <div class="loader-bg-top"></div>
         <div class="loader-bg-bottom"></div>
         <div class="loader-horizontal-line"></div>
         <div class="loader-content-wrapper">
-            <img src="Logo.png" alt="Logo" class="loader-img">
-            <span>Selamat Datang</span>
+            <img src="logo-farhan.png" alt="Logo" class="loader-img">
+            <span>FARHAN</span>
         </div>
     </div>
 
+    <!-- HEADER / NAVBAR ATAS -->
     <div class="header-wrapper">
         <header>
             <div class="logo-container">
-                <img src="Farhan.png" alt="Logo" class="logo-img">
+                <img src="logo-farhan.png" alt="Logo" class="logo-img">
                 <span>Hann || WebDev</span>
             </div>
             
-            <nav>
+            <!-- Navbar Desktop (Hilang di HP) -->
+            <nav class="desktop-nav">
                 <a href="#" class="active"><i class="fa-solid fa-house"></i> Beranda</a>
                 <a href="#"><i class="fa-regular fa-user"></i> Tentang</a>
                 <a href="#"><i class="fa-solid fa-code"></i> Karya</a>
@@ -305,13 +353,16 @@
 
     <main>
         <section class="hero">
+            <!-- KONTEN TEKS KIRI (Tengah di HP) -->
             <div class="hero-content">
                 <h1>Dwi Farhan Hidayat,<br><span class="typewriter-text" id="typewriter"></span><span class="cursor">_</span></h1>
                 <p>Halo, saya <strong>Dwi Farhan Hidayat</strong> -- Seorang Web Developer yang berfokus pada UI/UX, Backend Developer dan desain grafis.</p>
+                
                 <div class="cta-buttons">
                     <a href="#" class="btn btn-primary">Lihat Proyek <i class="fas fa-arrow-right"></i></a>
                     <a href="#" class="btn btn-secondary">Hubungi Saya</a>
                 </div>
+                
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-github"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -320,11 +371,11 @@
                 </div>
             </div>
 
+            <!-- GAMBAR 3D KANAN (Akan otomatis Hilang di HP) -->
             <div class="hero-image">
                 <div class="image-wrapper">
                     <img src="objek-3d.png" alt="3D Element" class="asset-3d" id="asset-3d">
                 </div>
-                
                 <div class="floating-card">
                     <div class="avatars">
                         <img src="https://via.placeholder.com/35" alt="Klien 1">
@@ -337,6 +388,14 @@
             </div>
         </section>
     </main>
+
+    <!-- BOTTOM NAVBAR KHUSUS MOBILE (Akan otomatis Hilang di PC) -->
+    <nav class="mobile-bottom-nav">
+        <a href="#" class="active"><i class="fa-solid fa-house"></i></a>
+        <a href="#"><i class="fa-regular fa-user"></i></a>
+        <a href="#"><i class="fa-solid fa-code"></i></a>
+        <a href="#"><i class="fa-regular fa-envelope"></i></a>
+    </nav>
 
     <script>
         // --- 1. SCRIPT SEQUENCE ANIMASI LOADING ---
@@ -381,13 +440,16 @@
         }
         document.addEventListener("DOMContentLoaded", () => setTimeout(type, 3300));
 
-        // --- 4. SCRIPT EFEK PARALLAX ---
+        // --- 4. SCRIPT EFEK PARALLAX (Desktop Only) ---
         document.addEventListener('mousemove', function(e) {
-            const asset3D = document.getElementById('asset-3d');
-            if (asset3D) {
-                const xAxis = (e.pageX - window.innerWidth / 2) / 30;
-                const yAxis = (e.pageY - window.innerHeight / 2) / 30;
-                asset3D.style.transform = `scale(1.1) translate(${xAxis}px, ${yAxis}px)`;
+            // Cek apakah lebar layar > 768px (Desktop), jika ya, jalankan efek kursor
+            if(window.innerWidth > 768) {
+                const asset3D = document.getElementById('asset-3d');
+                if (asset3D) {
+                    const xAxis = (e.pageX - window.innerWidth / 2) / 30;
+                    const yAxis = (e.pageY - window.innerHeight / 2) / 30;
+                    asset3D.style.transform = `scale(1.1) translate(${xAxis}px, ${yAxis}px)`;
+                }
             }
         });
     </script>
